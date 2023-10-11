@@ -101,15 +101,15 @@ pdcomplaints %>% count(ImpactedGender)
 
 # essential verbs for tidy data manipulation ------------------------------
 
-# select:
+# select:   --- gets subset of COLUMNS
 pdcomplaints %>%
   select(matches('Date'))
 
-# filter
+# filter:   --- gets subset of ROWS
 pdcomplaints %>%
   filter(ImpactedGender == 'Female')
 
-# mutate
+# mutate    --- modifies a column or set of columns
 pdcomplaints %>% count(ImpactedGender)
 
 #' here, we're cleaning the data by redefining the duplicated terms Female and
@@ -164,6 +164,8 @@ pdcomplaints <- pdcomplaints %>%
 
 pdcomplaints %>% count(ImpactedGender)
 
+pdcomplaints %>% count(IncidentDate)
+
 #' here's one way that's in the middle -- less typing, but using the same
 #' conceptual approach as the `if_else` method.
 #'
@@ -187,7 +189,6 @@ pdcomplaints %>% select(matches('date'))
 pdcomplaints %>% count(IncidentPrecinct)
 
 
-
 #' next essential functions: group_by and summarise
 
 # group_by
@@ -202,15 +203,125 @@ pdcomplaints
 
 # quick vectors and indexing tutorial ------------------------------------------
 
+## what is a vector? -------------------------------------------------------
+
+#' a vector is basically a series of values.
+#'
+#' let's define a vector below -- it uses just the `c` function:
+sample.vector <- c(1,2,3)
+sample.vector
+
+#' each column of a dataframe can be thought of as it's own vector: a dataframe
+#' can be thought of as a collection of named vectors of equal length.
+
+# this is also a vector:
+pdcomplaints$AllegationID
+
+another.sample.vector <- c('a','b', 'c')
+another.sample.vector
+
+# this is a way to manually create a dataframe from vectors -- as opposed to
+# just reading in a csv.
+sample.dataframe <- data.frame(
+   numbers = sample.vector
+  ,letters = another.sample.vector
+)
+# we can call all the same operations as on `nypdcomplaints`
+sample.dataframe %>% select(numbers)
+
+# checking data type with `class`
+sample.dataframe$numbers %>% class()
+sample.dataframe$letters %>% class()
+
+# doing math with vectors -- looking at how results change
+1+4
+1+sample.dataframe$numbers
+2*sample.dataframe$numbers
+
+sample.dataframe$numbers + sample.dataframe$numbers
+sample.dataframe$numbers + c(1,2, NA)
+
+# finally, to sum every element of a vector
+sum(sample.dataframe$numbers)
+
+## selecting columns or checking what columns exist in a table ----------------------------
+
+#' given table `pdcomplaints`:
+#'
+#' `colnames` function will list all column names
+#'
+#' Or we can count on autocomplete after typing a `$` after a table or calling
+#' `select`
+pdcomplaints %>% colnames()
+
+pdcomplaints$OfficerGender
+pdcomplaints %>% select(OfficerGender)
+
+
+# indexing practice -------------------------------------------------------
+
+#' indexing is basically selecting a subset of rows/columns
+#'
+#' brackets: [] allow us to index using base R; we can ask for rows and then
+#' columns
+#'
+
+sample.dataframe
+
+#' say we want to only select the second row
+sample.dataframe[2, ]
+# what about the second AND third rows? ----we can index with a vector
+sample.dataframe[c(2, 3), ]
+#' we can also use a logical vector -- Trues/Falses
+#'
+#' To select the second row using a logical vector:
+sample.dataframe[c(F, T, F), ]
+
+# indexing with logical vectors is relevant, because that's how we filter our
+# data -- let's think about officer gender-- how do we get to only complaints
+# that involved a male officer?
+pdcomplaints %>% count(OfficerGender)
+
+# we can turn the column --- which was a vector --- into a logical vector as
+# below:
+pdcomplaints$OfficerGender == 'Male'
+pdcomplaints[ pdcomplaints$OfficerGender == 'Male' , ] # a subset of the full data
+
+# The above is indexing in base R -- we can also use tidyverse:
+pdcomplaints %>%
+  filter( OfficerGender == 'Male' &
+            FirstName == 'Robert'
+            ) %>%
+  count(TaxID) %>%
+  arrange(desc(n))
+
+complaints.per.officer <- pdcomplaints %>%
+  count(TaxID) %>%
+  arrange(desc(n))
+
+
+# top complaint-inducing officers:
+most.complained.about <-
+  complaints.per.officer[complaints.per.officer$n > 80, ]$TaxID
+
+pdcomplaints %>%
+  filter(TaxID %in%
+           most.complained.about
+         )
+#' the comma in the brakets is important, the logic is:
+#'
+#' data.frame[row.selection, column.selection]
 pdcomplaints$ImpactedGender[1:10]
 
 # beginning to think through time-series analysis -------------------------------
 
 library(lubridate)
-
+sample.date <- ymd('2023-09-1')
+sample.date %>% class()
+lubridate::month(sample.date)
+lubridate::year(sample.date)
 # a very relevant column for a lot of data.
-pdcomplaints %>% range()
-pdcomplaints$IncidentDate
+pdcomplaints %>% count(IncidentDate)
 
 pdcomplaints$IncidentDate %>% class()
 
