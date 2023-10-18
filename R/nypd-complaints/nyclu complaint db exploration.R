@@ -11,11 +11,9 @@ rm(list = ls())
 # path to data
 pth <-
   '~/R/local-data/nypd-complaints/CCRB Complaint Database Raw 04.28.2023/CCRB Complaint Database Raw 04.28.2023.csv'
-
-pth
-
 #?read.csv
-pdcomplaints <- vroom::vroom(pth) # vroom::vroom is a faster version of read.csv
+pdcomplaints <- vroom::vroom(pth)
+# (vroom::vroom is a faster version of read.csv)
 
 pdcomplaints
 
@@ -31,6 +29,7 @@ glimpse(pdcomplaints)
 pdcomplaints %>% glimpse()
 
 pdcomplaints %>% colnames()
+colnames(pdcomplaints) # also equivalent
 #?colnames
 #?nrow
 
@@ -173,6 +172,9 @@ pdcomplaints %>% count(IncidentDate)
 #'
 #' (double == signs are for True/False comparisons; single = signs are more for
 #' assigning variables or arguments of functions.)
+#'
+#'
+#' clean the gender column
 pdcomplaints <- pdcomplaints %>%
   mutate(ImpactedGender =
            case_when(
@@ -192,6 +194,11 @@ pdcomplaints %>% count(IncidentPrecinct)
 #' next essential functions: group_by and summarise
 
 # group_by
+
+# below two commands are the same
+pdcomplaints %>%
+  count(ImpactedGender)
+
 pdcomplaints %>%
   group_by(ImpactedGender) %>%
   summarise( number.of.rows = n() )
@@ -199,7 +206,7 @@ pdcomplaints %>%
 pdcomplaints %>%
   summarise( number.of.rows = n() )
 
-pdcomplaints
+
 
 # quick vectors and indexing tutorial ------------------------------------------
 
@@ -210,6 +217,7 @@ pdcomplaints
 #' let's define a vector below -- it uses just the `c` function:
 sample.vector <- c(1,2,3)
 sample.vector
+
 
 #' each column of a dataframe can be thought of as it's own vector: a dataframe
 #' can be thought of as a collection of named vectors of equal length.
@@ -226,6 +234,7 @@ sample.dataframe <- data.frame(
    numbers = sample.vector
   ,letters = another.sample.vector
 )
+sample.dataframe
 # we can call all the same operations as on `nypdcomplaints`
 sample.dataframe %>% select(numbers)
 
@@ -257,6 +266,7 @@ pdcomplaints %>% colnames()
 pdcomplaints$OfficerGender
 pdcomplaints %>% select(OfficerGender)
 
+pdcomplaints
 
 # indexing practice -------------------------------------------------------
 
@@ -313,6 +323,28 @@ pdcomplaints %>%
 #' data.frame[row.selection, column.selection]
 pdcomplaints$ImpactedGender[1:10]
 
+
+
+# distribution of complaints by officer -----------------------------------
+
+
+#' let's think through distributions a bit more, try and make a first
+#' visualization, and i think this could be a fruitful place for analysis.
+#'
+
+# (down the line we might think about filtering our universe)
+pdcomplaints %>% select( where(is.Date ))
+pdcomplaints$DaysOnForce %>% summary()
+
+
+complaints.per.officer <-
+  pdcomplaints %>%
+  count(TaxID) %>%
+  arrange(desc(n))
+
+complaints.per.officer
+
+
 # beginning to think through time-series analysis -------------------------------
 
 library(lubridate)
@@ -322,9 +354,92 @@ lubridate::month(sample.date)
 lubridate::year(sample.date)
 # a very relevant column for a lot of data.
 pdcomplaints %>% count(IncidentDate)
+pdcomplaints$
+pdcomplaints %>%
+  mutate(
+    incidentyr =
+  )
 
 pdcomplaints$IncidentDate %>% class()
-
+pdcomplaints$OfficerGender %>% class()
 
 lubridate
 
+filter(pdcomplaints,
+       OfficerGender == 'Male') %>%
+  count(TaxID)
+
+
+
+# .ppt code ---------------------------------------------------------------
+
+# tidyverse select
+pdcomplaints %>%
+  select(CCRBDisposition, ContactOutcome)
+
+# base R indexing
+pdcomplaints[ , c('CCRBDisposition', 'ContactOutcome')]
+
+# filter
+pdcomplaints %>%
+  filter(OfficerGender == 'Male')
+
+# index
+pdcomplaints[ pdcomplaints$OfficerGender == 'Male', ]
+
+
+# pulling columns: base R and tidyverse
+pdcomplaints$OfficerGender
+pdcomplaints %>% pull(OfficerGender)
+
+
+pdcomplaints %>%
+  count(ContactReason, ContactOutcome)
+
+pdcomplaints$IncidentDate %>% range(na.rm = T)
+#pdcomplaints %>%
+
+pdcomplaints %>%
+  mutate(indcidentyr =
+           year(IncidentDate)
+         ,mindcidentmonth =
+           month(IncidentDate)
+         ) %>%
+  filter(indcidentyr >= 2000 &
+           indcidentyr < 2022) %>%
+  group_by(indcidentyr, BoardCat) %>%
+  summarise(n = n()) %>%
+  ggplot(
+    aes(x = indcidentyr
+        , y = n
+        ,fill = BoardCat
+        ,color =BoardCat)
+  ) +
+  geom_area() +
+  # geom_path(
+  #   linewidth = 1
+  # ) +
+  scale_fill_manual(
+    values = c(visaux::jewel.pal(), 'grey35', 'black')
+    ,aesthetics = c('color', 'fill')
+  ) +
+  theme_bw()
+
+
+pdcomplaints <- pdcomplaints %>%
+  mutate(Incidentyr =
+           lubridate::year(IncidentDate))
+
+tmp <-
+  pdcomplaints %>%
+  group_by(Incidentyr) %>%
+  summarise( n.complaints = n()
+            ,n.substantiated = sum(BoardCat == 'Substantiated')
+            ) %>%
+  ungroup() %>%
+  mutate(perc.substantiated =
+           n.substantiated / n.complaints)
+
+tmp$perc.substantiated %>% scales::percent()
+
+tmp$n.complaints %>% scales::comma()
