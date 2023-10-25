@@ -354,7 +354,7 @@ lubridate::month(sample.date)
 lubridate::year(sample.date)
 # a very relevant column for a lot of data.
 pdcomplaints %>% count(IncidentDate)
-pdcomplaints$
+
 pdcomplaints %>%
   mutate(
     incidentyr =
