@@ -28,11 +28,6 @@ pdcomplaints <- pdcomplaints %>%
   )
 
 
-## make colnames lowercase -------------------------------------------------
-
-pdcomplaints <- pdcomplaints %>%
-  rename_with( tolower )
-
 ## add a year column -------------------------------------------------------
 
 library(lubridate)
@@ -40,7 +35,7 @@ library(lubridate)
 pdcomplaints %>% select(matches('date'))
 pdcomplaints <- pdcomplaints %>%
   mutate(incident.yr =
-           lubridate::year(incidentdate)
+           lubridate::year(IncidentDate)
            )
 
 # distribution of complaints by officer -----------------------------------
@@ -77,7 +72,6 @@ complaints.per.officer %>%
   )
 
 plotly::ggplotly()
-
 
 complaints.per.officer %>%
   filter(n >=
@@ -125,40 +119,39 @@ select(matches('date|active|days'))
 
 ## how do misconducts correlate with outcomes? -----------------------------
 
-pdcomplaints$incidentrank
-pdcomplaints %>% count(penaltydesc)
-pdcomplaints %>% count(penaltyrec)
+pdcomplaints %>% count(PenaltyDesc)
+pdcomplaints %>% count(PenaltyRec)
 
 # here is penalty outcome
-pdcomplaints %>% count(penaltycat)
+pdcomplaints %>% count(PenaltyCat)
 
 # misconducts or content of complaint
-pdcomplaints %>% count(allegation) %>% arrange(desc(n))
+pdcomplaints %>% count(Allegation) %>% arrange(desc(n))
 
-pdcomplaints$incidentdate %>% range(na.rm = T)
+pdcomplaints$IncidentDate %>% range(na.rm = T)
 
 pdcomplaints %>%
   filter(incident.yr > 2015) %>%
-  count(allegation) %>%
+  count(Allegation) %>%
   arrange(desc(n))
 
 # When the allegation was physical force, what were the outcomes? were there
 # other factors?
 
 force.allegations <- pdcomplaints %>%
-  filter( allegation ==
+  filter( Allegation ==
             'Physical force'
           ) %>%
   filter(incident.yr >= 2000)
 
 # now let's plot
 force.allegations %>%
-  count(incident.yr, penaltycat) %>%
+  count(incident.yr, PenaltyCat) %>%
   ggplot(
     aes(
       y = factor(incident.yr)
       ,x = n
-      ,fill = penaltycat
-      ,color = penaltycat
+      ,fill = PenaltyCat
+      ,color = PenaltyCat
     )) +
   geom_col()
