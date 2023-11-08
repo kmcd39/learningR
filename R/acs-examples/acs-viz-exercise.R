@@ -1,12 +1,15 @@
 library(tidyverse)
 library(sf)
 
-
 rm(list = ls())
 
+# don't worry too much about code here ---------------------------------------------
 
-# don't worry about code here ---------------------------------------------
+# (i'm using other code I've written to quickly pull some data for NYC)
 
+# (the command below wraps several `tidycensus` calls)
+
+# pull nyc data by neighborhood ("census tract")
 attrs <- censusrx::get.tract.attrs(
   state = 36
   ,cofps = visaux::nyboros
@@ -21,10 +24,12 @@ cofps <-
     ,year = 2021
 ) %>%
   rename_with(tolower)
+
+# trim to just the 5-boros of NYC
 boros <- cofps %>%
   filter(countyfp %in% visaux::nyboros)
 
-# extract countyfp & add boro name
+# extract countyfp & add boro name to the tract-level data.
 attrs <- attrs %>%
   mutate(cofp = substr(geoid, 3,5)
          ,.after = geoid)
@@ -34,35 +39,51 @@ attrs <- attrs %>%
              ,by = c('cofp' = 'countyfp'))
 
 
+# result of the above -----------------------------------------------------
+
+#' the data represents Neigborhoods ("census tracts") in New York City.
+#'
+#' There's one row per neighborhood in the data; columns represent information
+#' for those neighborhoods.
+attrs
 
 # histograms/density plots of NYC nbhds --------------------------------------------------
 
+attrs <- attrs %>%
+  rename(boro = name)
 #attrs <- attrs %>% filter(pop > 50)
+attrs %>% count(name)
 
-attrs %>%
-  ggplot(
-    aes(x = med.hhinc)
-  ) +
-  geom_histogram(
-    binwidth = 5e3
-    ,fill = '#880000'
-  )
-
-attrs
-
+# very basic histogram of nbhd median hh incomes
 attrs %>%
   ggplot(
     aes(x = med.hhinc
-        ,fill = name
-        ,weight = n.hh)
+        )
+  ) +
+  geom_histogram()
+
+# more happening here - but it's still just a histogram showing the same
+# variable.
+second.histogram <-
+  attrs %>%
+  ggplot(
+    aes( x = med.hhinc
+        ,fill = boro
+        ,weight = n.hh # n.hh = "number of households"
+        )
   ) +
   geom_histogram(
-    binwidth = 5e3
+    binwidth = 5e3 # 5e3 is scientific notation for 5,000
   ) +
   scale_fill_manual(
     values = visaux::jewel.pal()
   )
 
+second.histogram
+
+second.histogram +
+  facet_wrap(vars(boro)
+             ,ncol = 1)
 
 ## Making use of another package! ggridges ---------------------------------
 
@@ -72,14 +93,14 @@ attrs %>%
 #install.packages('ggridges')
 library(ggridges)
 
-#ggridges::geom_density_line()
+
 attrs %>%
   ggplot(
     aes(x = med.hhinc
-        ,fill = name
+        ,fill = boro
         #,color = name
-        ,y = name
-        ,group = name
+        ,y = boro
+        ,group = boro
         ,weight = n.hh)
   ) +
   geom_density_ridges() +
@@ -97,25 +118,25 @@ attrs %>%
   theme_bw()
 
 
-
-
 # scatter plots ------------------------------------------------------------
 
 # we can think about how income correlates with... car ownership!
+attrs
+attrs %>% colnames()
 
 
 attrs %>%
   ggplot(
     aes( x = med.hhinc
         ,y = perc.no.car
-        ,color = name
+        ,color = boro
         )
   ) +
-  # geom_smooth(
-  #   method = 'lm',
-  #   se = T ) +
+  geom_smooth(
+    method = 'lm',
+    se = F) +
   geom_point(
-    aes(size = n.hh)
+     aes(size = n.hh)
     ,alpha = .6
     #,show.legend = F
   ) +
@@ -125,11 +146,13 @@ attrs %>%
     ,aesthetics = c('fill', 'color')
   ) +
   scale_size_continuous(
-    range = c(.3,.9)
+    range = c(.9,1.8)
     ,guide = 'none'
   )
 
 # are there any other relationships we want to explore? -------------------------
+
+
 
 
 
@@ -153,17 +176,20 @@ tmp <- medians$med.hhinc %>%
   rename(boro = name
          ,med.hhinc = n)
 
+# this is another dataframe -- only 10 rows; each corresponds to one boro/year
+tmp
 
 # basic example
+tmp
+
 tmp %>%
   filter(year %in% 2011) %>%
   ggplot(
-    aes(y = boro
+    aes( y = boro
         ,x = med.hhinc
         ,fill = boro)
   ) +
   geom_col()
-
 
 ## example w "faceting" -----------------------------------------------------
 
@@ -172,12 +198,13 @@ facet.colplot <- tmp %>%
   # filter(year %in% 2011) %>%
   ggplot(
     aes(y = boro
-        ,x = n
+        ,x = med.hhinc
         ,fill = boro)
   ) +
-  geom_col() +
+  geom_col(  ) +
   facet_wrap(vars(year)
              ,ncol = 1)
+
 
 facet.colplot
 
@@ -206,20 +233,39 @@ facet.colplot +
   )
 
 
+# maps --------------------------------------------------------------------
 
-# # adding in HHs -----------------------------------------------
-#
-# # get total HHs as well
-# totts <- censusrx::gett.census.totals(
-#   state = 36
-#   ,geo = 'county'
-#   ,years = c(2021)
-#   ,cofps = boros$countyfp
-# )
-#
-# # merge it in and rename medhh income column
-# tmphh <- tmp %>%
-#   filter(year == 2021) %>%
-#   left_join(totts)  %>%
-#   rename(med.hhinc = n)
-#
+# (we'll get more into maps later)
+library(sf)
+tmp
+manhattan.median <- tmp %>%
+  filter(year == 2021 & boro == 'New York') %>%
+  .$med.hhinc
+
+# below attaches neighborhood geometries
+attrsf <- attrs %>%
+  geox::attach.geos()
+
+attrs
+attrs %>% glimpse()
+attrs
+library(colorspace)
+
+attrsf %>%
+  filter( as.numeric(aland.acre) >
+            0) %>%
+  ggplot() +
+  geom_sf(
+    aes( fill = med.hhinc)
+    ,color = NA
+  ) +
+  #scale_fill_viridis_c()
+  scale_fill_binned_divergingx(
+    mid =
+      #manhattan.median
+      75e3
+    ,pal = 'Temps'
+    ,rev = T
+  )
+
+
