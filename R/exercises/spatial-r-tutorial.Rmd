@@ -1,0 +1,293 @@
+---
+title: "Spatial R Tutorial"
+author: "kira"
+output:  
+  html_document:
+     toc: true
+     toc_float: true
+     theme: cerulean
+     highlight: tango
+---
+
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F
+                      ,message = F
+                      ,warning = F
+                      ,dpi=300
+                      ,fig.width=5.5
+                      ,fig.height=4.8)
+library(tidyverse)
+library(sf)
+
+options(tigris_use_cache = TRUE)
+
+cattrs <- 
+  censusrx::get.tract.attrs(
+     state = 36
+    ,cofps = visaux::nyboros
+    ,year = 2021
+    ,geo = 'tract'
+  )
+
+cattrs %>% glimpse()
+
+ctsf <- 
+  tigris::tracts(
+     state = 36
+    ,county = visaux::nyboros
+    ,year = 2021
+  ) %>% 
+  rename_with(tolower) %>% 
+  select(geoid)
+
+ctsf
+
+```
+
+<hr>
+
+
+# Mapping! {.tabset}
+
+Some quick sample maps to motivate the lesson!
+
+## Static
+
+```{r, results='hide'}
+
+cattrs$pop %>% quantile(seq(0,1,.05))
+cattrs$med.hhinc %>% quantile(seq(0,1,.05), na.rm = T)
+cattrs$aland.acre %>% summary()
+
+tmp <- 
+  cattrs %>% 
+  left_join(ctsf) %>% 
+  st_sf() %>% 
+  mutate(capped.x = 
+           visaux::cap.at.quantile(med.hhinc)
+         ) %>% 
+  filter(as.numeric(aland.acre) > 0)
+
+wtr <- tigris::area_water(state = 36, county = visaux::nyboros) %>% 
+  rename_with(tolower)
+wtr <- wtr %>% filter(aland >= quantile(wtr$aland, .98))
+
+# define a bkgd color
+bkgd.color <- 'white'
+
+tmp %>% 
+  ggplot() +
+  geom_sf(
+    aes(fill = capped.x)
+    ,color = NA#'white'
+    ,linewidth = .0
+  ) +
+  geom_sf(data = wtr
+          ,fill = bkgd.color
+          ,color = bkgd.color) +
+  scale_fill_viridis_c(
+    'Median Household\nIncome ($)'
+    ,labels = ~visaux::ggcapped.labels(scales::comma(.x))
+  ) +
+  theme_void()
+
+```
+
+## Interactive
+
+(colors are different because they're not capped)
+
+```{r, width = 40, height = 30}
+
+library(mapview)
+
+tmp %>% 
+  filter(!is.na(med.hhinc)) %>% 
+  mapview( zcol = 'med.hhinc'
+           ,width = '50%')
+
+```
+
+
+# How did we generate that?
+
+I used a helper function i had written (in a package called [censusrx](https://github.com/kmcd39/censusrx)) to pull the tract information very quickly. But this is built in turn on packages to quickly query data -- including spatial data, such as area geometries, from the US Census Bureau.
+
+This tutorial quickly goes over essential libraries for doing spatial work in R and gives an example workflow working with census data.
+
+# Essential Libraries!
+
+* `sf` is the key R library for spatial R. You’ll likely always want to load whenever doing mapping + spatial analysis
+
+* For pulling in census geometries directly from R, `tigris` is extremely useful. `tidycensus` is less straightforward to use, but can pull census estimates for many social attributes, as well as geometries. Resource: [Reference book](https://walker-data.com/census-r/) on working with Census Bureau data in R
+
+* You might see references to `sp` or other libraries on stackoverflow and elsewhere–`sp` provided some similar functionalities but is rapidly getting displaced by `sf`. I recommend trying to avoid older libraries that are falling out of favor and using `sf` or compatible libraries whenever possible.
+
+For visualization:
+
+* `ggplot2` in the tidyverse is great for static visualization!
+
+* `mapview` is great for interactive ones.
+
+* More polished or modifiable interactive maps can be made with `leaflet`.
+
+## sf Overview
+
+The `sf` library  will underlie most spatial work in R.
+
+Some quick notes:
+
+* All functions are prefixed with st_
+
+* sf objects are basically data.frames that include a geometry column. The geometry column will represent the spatial features associated with each row.
+
+* The geometry column will be “sticky.” To drop it, you’ll have to turn the sf into a tibble or other non-spatial data.frame. This is often useful because grouping an sf object will cause geometries to union. This can very useful, but it can also be an expensive operation that slows down non-spatial analysis.
+
+
+# Sample Census Data Workflow
+
+Get population for the five boroughs of NYC!
+
+This requires looking up the state/county FIPS codes we want (FIPS codes are identifiers used by the Census Bureau to identify areas like counties, census tracts, etc.)
+
+
+```{r, echo=TRUE}
+
+# county FIPS codes for the 5 boroughs of NYC
+nyboros <- c("085", "005", "047", "061", "081")
+
+# query population data with tidycensus
+boro.pops <- 
+  tidycensus::get_acs(
+     geography = 'county'
+    ,state = 'ny'
+    ,county = nyboros
+    ,year = 2021
+    ,variables = c(pop = "B01001_001"), # just population
+  )
+
+# i like column names in lowercase
+boro.pops <- boro.pops %>% 
+  rename_with(tolower)
+
+# get geometries for the 5 boroughs
+boro.geos <- 
+  tigris::counties(
+     state = 36
+    ,year = 2021
+  ) %>% 
+  rename_with(tolower) %>% 
+  select(geoid, aland) %>% 
+  filter(geoid %in% paste0('36', nyboros))
+
+# merge and make it an sf object
+boro.popsf <- boro.pops %>% 
+  left_join(boro.geos) %>% 
+  st_sf()
+
+```
+
+## Our initial map!
+
+
+```{r, echo=TRUE}
+# map!
+ggplot(boro.popsf) +
+  geom_sf(
+    aes(fill = estimate)
+  )
+
+```
+
+
+It looks awful!
+
+## Improving it!
+
+we can make it prettier by adding water, using better color palette, neatening the legend, and removing the gridded background.
+
+```{r, echo=TRUE}
+
+# use tigris to pull water areas.
+wtr <- tigris::area_water(state = 36, county = nyboros) %>% 
+  rename_with(tolower)
+wtr <- wtr %>% filter(aland >= quantile(wtr$aland, .98))
+
+# define a bkgd color
+bkgd.color <- 'grey90'
+
+ggplot(boro.popsf) +
+  geom_sf(
+    aes(fill = estimate)
+    ,color = NA
+  ) +
+  # add a layer for water areas that matches background color.
+  geom_sf(data = wtr
+          ,fill = bkgd.color
+          ,color = bkgd.color) +
+  # change color palette and neaten labels.
+  scale_fill_viridis_c(
+    'Population'
+    ,labels = scales::comma
+    ,option = 'B'
+  ) +
+  theme_void() +
+  theme(panel.background =
+          element_rect(fill = bkgd.color)
+          ) +
+  labs(
+    caption = 'Source: 2021, American Community Survey, 5-year estimates.'
+  )
+
+```
+
+# Coordinate Reference Systems (CRS)
+
+If you're doing spatial data manipulation, you might run into some issues caused by the curvature of the earth. As you probably know, maps are projected different ways to represent geography on a flat surface. The projection method is called a coordinate reference system (CRS).
+
+The curvature of the earth is not dealt with in all spatial R libraries. The `lwgeom` package can extend sf to allow “geodetic” functions, which do account for the curved surface when calculating things like distance or area. See [here](https://r-spatial.github.io/lwgeom/reference/geod.html). `Sf` is also being extended to allow geodetic operations. See [here](https://r-spatial.github.io/sf/articles/sf7.html).
+
+In general, you'll have to transform your spatial datasets to the same CRS to work with them together. Some functions will give a message/warning/error based on whether it expects long/lat or planar geometries.
+
+A CRS can store a lot of information, but common ones can just be represented by a 4+ digit number, called an EPSG code. You can use the espg 4326 for a common long-lat crs, used by google maps and elsewhere.
+
+Changing CRS can also help your maps by shifting to appropriate projections for the area you're mapping.
+
+## CRS affecting calculations
+
+Example of how using geodetic operations vs planar operations (and a non-areal-preserving CRS) will yield different results:
+
+```{r, echo=TRUE}
+
+library(lwgeom)
+
+boro.geos %>% 
+  st_transform(32618) %>% 
+  mutate(calculated.area =
+           st_area(geometry)
+  ) %>% 
+  st_transform(4326) %>% 
+  mutate(calculated.geodetic.area =
+           st_geod_area(geometry)
+         ) %>% 
+  tibble() %>% 
+  select(-geometry) %>% 
+  mutate(difference =
+           calculated.geodetic.area - calculated.area)
+
+```
+
+The first calculated area has a [UTM CRS](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system) projection (represented by the EPSG code 32618). This map projection doesn't preserve area, and our area calculation function doesn't know how to compensate.
+
+When we change the CRS to a longitude/latitude projection (using the EPSG code 4326) and use a geodetic function to calculate area, we get a different answer (see the `difference` column).
+
+The second answer will be more accurate because it accounts for the curvature of the earth and doesn't base calculations on an areal-distorted map projection. 
+
+
