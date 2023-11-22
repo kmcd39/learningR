@@ -1,0 +1,65 @@
+---
+title: "R Very Basics"
+author: "kira"
+output:  
+  html_document:
+     toc: true
+     toc_float: true
+     theme: cerulean
+     highlight: tango
+---
+
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+
+#' This file generates the document at https://rpubs.com/kmc39/spatial-r-tutorial.
+#' 
+#' These are called markdowns, and allow one to nest code and results together in
+#' one document.
+
+knitr::opts_chunk$set(echo = T
+                      ,message = F
+                      ,warning = F
+                      ,dpi=300
+                      ,fig.width=5.5
+                      ,fig.height=4.8)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+
+```
+
+<hr>
+
+```{r}
+
+# define a vector
+vec <- c(1,2,3,4)
+vec
+
+```
+
+(A vector is just a series of numbers. Often a vector will be one column in a dataframe)
+
+In fact, we can define a dataframe with a couple vectors of equal lengths.
+
+```{r}
+
+vec2 <- c('a', 'b', 'c', 'd')
+
+vec2
+
+# define the data.frame
+df <- 
+  data.frame(number = vec
+           ,letters = vec2)
+
+```
+
+df
+
