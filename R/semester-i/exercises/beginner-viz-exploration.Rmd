@@ -1,0 +1,270 @@
+---
+title: "Beginning Visualization and Data Exploration"
+author: "kira"
+output:  
+  html_document:
+     toc: true
+     toc_float: true
+     theme: cerulean
+     highlight: tango
+---
+
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T
+                      ,message = F
+                      ,warning = F
+                      ,dpi=300
+                      ,fig.width=5.5
+                      ,fig.height=4.8)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+
+thme <- 
+  list(
+    theme_light()
+    ,theme(text = element_text(size = 9))
+  )
+
+```
+
+(Using [COVID-19 data](https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitalizations-an/rc75-m7u3) from NYC open data.)
+
+This short document is meant to demonstrate some process for loading and exploring a dataset and shaping some research questions based on the initial exploration.
+
+This document is a "markdown," which is a document that can be created in R that can combine code, results, and plain-language writing all in one.
+
+# Initial load & explorations
+
+The following block of code will load and do some initial processing of COVID-19 data from NYC OpenData.
+
+```{r, results='hide'}
+
+lnk <- 'https://raw.githubusercontent.com/nychealth/coronavirus-data/master/trends/data-by-day.csv'
+
+cd <- vroom::vroom(lnk)
+
+cd <- cd %>% rename_with(tolower)
+
+# lubridate
+library(lubridate)
+
+cd <- cd %>% 
+  rename(date = date_of_interest) %>% 
+  mutate(date =
+           mdy(date)
+           )
+
+#cd
+
+cd %>% arrange(desc(date)) %>% glimpse() 
+
+# regular expressions -- can be useful, but won't be a focus in this class. See https://r4ds.hadley.nz/regexps
+boro.prefix.regx <- c('^bx|^bk|^mn|^qn|^si')
+
+# create a by-boro dataset (don't worry if you don't understand this whole block of code)
+cdbb <- cd %>% 
+  select(date,
+         matches(boro.prefix.regx)
+         ) %>% 
+  pivot_longer(
+    cols = matches(boro.prefix.regx)
+    ,names_sep = 2
+    ,names_to = c('boro','var')
+  ) %>% 
+    mutate(var = 
+             trimws(
+               gsub('_', ' ', var)
+    ))
+
+cdbb
+
+cdbb$date %>% min()
+
+```
+
+# Starting out!
+
+A table with daily averages is shown below:
+
+```{r}
+
+# check what variables are available
+cdbb %>% count(var)
+
+# filter to counts
+ccounts <- cdbb %>% 
+  filter(grepl('count$', var)) %>% 
+  mutate(var =
+           gsub(' count$', '', var))
+
+# calculate means by outcome (& format!)
+means.by.outcome <- ccounts %>% 
+  group_by(var) %>% 
+  summarise(value = 
+              scales::comma(mean(value)))
+
+# output! `knitr::kable` makes output prettier in a markdown.
+knitr::kable(means.by.outcome)
+
+```
+
+## Initial questions
+
+Where can we go from here? what questions may be raised by this category?
+
+* disaggregate by borough?
+* patterns over time?
+
+What questions might we have?
+
+* What constitutes a "Covid-19 death"? Does covid have to be a leading factor or can it be a contributing one? Is there much ambiguity?
+* What is a "probable case"? How do they differ from "cases"? How can we approximate likely actual cases -- should we add them together? 
+ 
+ 
+This dataset is relatively well documented! So we can look at that documentation
+
+  * But note: the documentation is outdated. We'll have to poke around dataset to see how categories actually fit together. Unfortunately, this can be pretty common for all but the best-maintained datasets.
+
+# Disaggregating by Borough
+
+```{r}
+
+full.boro.nms <- 
+  tibble(
+    abv = Hmisc::Cs(si, qn, mn, bx, bk)
+    ,boro.nm = Hmisc::Cs('Staten Island', 'Queens', 'Manhattan', 'Bronx', 'Brooklyn')
+  )
+
+ccounts %>% 
+  filter( !grepl('case',var) ) %>%
+  group_by(boro, var) %>% 
+  summarise(value = sum(value)
+            ) %>% 
+  left_join(full.boro.nms
+            ,by = c('boro' = 'abv')) %>% 
+  ggplot(
+    aes( y = boro.nm
+        ,x = value
+        ,fill = var)
+  ) +
+  geom_col() +
+  scale_fill_manual(
+     NULL
+    ,values = visaux::jewel.pal()
+  ) +
+  scale_x_continuous(
+    name = NULL
+    ,labels = scales::comma
+  ) +
+  scale_y_discrete(
+    name = NULL
+    ,limits=rev
+  ) +
+  theme_light() +
+  labs(
+     title = 'Covid Deaths and Hospitalizations in NYC, by Boro'
+  )
+
+```
+
+*How could we go further again?*
+
+* Adding caption for source!
+* Adding takeaway title!
+* Normalizing by population. Ratios of hospitalization/deaths : population?
+* Sorting boroughs more logically.. or mapping!
+
+What other questions may be raised? How might the ambiguities in the data affect how we should interpret those findings?
+
+# Data Over time
+
+```{r, results='hide'}
+
+# could  use the below to re-calc moving averages
+#library(zoo)
+
+# again, remind what variables were included
+cdbb %>% count(var)
+
+# use 7-day moving averages already included in the data
+mavgs <- cdbb %>%
+  filter(grepl('7day avg$', var)) %>% 
+  mutate(var = 
+           gsub(' count 7day avg', '', var)) %>% 
+  rename(ma = value) %>% 
+   left_join(full.boro.nms
+            ,by = c('boro' = 'abv')
+            ) 
+
+tmp <- 
+  mavgs %>%
+  filter(grepl('all case|hospitaliz|death', 
+               var)) %>% 
+  pivot_wider(
+     names_from = var
+    ,values_from = ma
+  ) %>% 
+    rename_with(make.names) %>% 
+    mutate(death.or.hospitalized =
+             hospitalized + death
+           ,deathorhosp2case.ratio =
+             death.or.hospitalized /
+             all.case
+           )  
+
+# quick peek
+tmp$deathorhosp2case.ratio %>% summary()
+
+tmp %>% 
+  filter(date > ymd('2023-01-01')
+         ) %>% 
+  ggplot(
+    aes( x = date
+        ,y = deathorhosp2case.ratio
+        ,color = boro.nm
+        )) +
+  geom_path(
+    linewidth = .4) +
+  scale_color_manual(
+    NULL,
+    values = visaux::jewel.pal()
+  ) +
+  scale_x_date(
+     NULL
+    ,limits = c(
+      ymd('2023-01-01'),
+      max(tmp$date)
+    )
+  ) +
+  scale_y_continuous(
+    'Ratio of Cases : Deaths or Hospitalizations'
+  ) +
+  theme_light(
+  ) +
+  labs(
+    title = 'Ratio of Cases to Deaths or Hospitalizations, 2023'
+    ,subtitle = '(Higher ratios mean fewer deaths or hospitalizations per COVID incident)'
+    ,caption = 'Source: COVID-19 Daily Counts, NYC Opendata, moving 7-day averages.')
+  
+
+```
+
+* How could we interpret this graph? How can we frame or posit findings from it?
+
+* What additional questions might it raise? How could we begin to explore those?
+
+
+# Add'l example NYC openData sets
+
+* [Causes of deaths](https://data.cityofnewyork.us/Health/New-York-City-Leading-Causes-of-Death/jb7j-dtam)
+* [Vehicle Crashes](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95)
+* [Covid Counts](https://data.cityofnewyork.us/Health/COVID-19-Daily-Counts-of-Cases-Hospitalizations-an/rc75-m7u3)
+* [Police reports]( tohttps://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Historic/qgea-i56i)
+
