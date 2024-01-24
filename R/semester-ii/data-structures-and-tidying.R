@@ -55,7 +55,6 @@ trel <- rel %>%
 
 trel
 
-
 # difference in how we can analyize: -------------------------------------
 
 rel
@@ -76,6 +75,12 @@ trel %>%
   summarise(tot = sum(freq))
 # a familiar synatax, we don't have to specify a column range.
 
+# or if we want to keep the disaggregation by income:
+trel %>%
+  group_by(religion) %>%
+  mutate(tot = sum(freq)) %>%
+  ungroup()
+
 # total by income bucket: -------------------------------------------------
 
 # Untidy totals by income:
@@ -88,7 +93,8 @@ trel %>%
   summarise(tot = sum(freq))
 # Nothing changes except the grouping variable.
 
-# with tidy data, we can also add manipulations as new column onto the same table:
+# with tidy data, we can also add manipulations as new column onto the same
+# table:
 trel <- trel %>%
   group_by(religion) %>%
   mutate(total.by.religion =
@@ -98,9 +104,7 @@ trel <- trel %>%
          ) %>%
   ungroup()
 
-
-
-
+trel
 
 # plotting: ---------------------------------------------------------------
 
@@ -119,7 +123,7 @@ trel <- trel %>%
                   levels = colnames(rel[2:ncol(rel)])
                   ))
 
-trel %>%
+levels.plot <- trel %>%
   ggplot(
     aes(y = religion
         ,x = freq
@@ -131,9 +135,11 @@ trel %>%
   ) +
   theme_ipsum(grid = 'X')
 
+levels.plot
 
 
-trel %>%
+proportions.plot <-
+  trel %>%
   ggplot(
     aes(y = religion
         ,x = share.by.religion
@@ -153,11 +159,125 @@ trel %>%
   theme_ipsum(grid = 'X')
 
 
+## what are better ways of plotting this? -----------------------------------
 
-# more complicated example ------------------------------------------------
+# better, or more suited to specific data questions..
+levels.plot
+
+proportions.plot
+
+trel %>%
+  ggplot(
+    aes( y = income.bucket
+        ,x = share.by.religion
+        #,fill = religion
+        #,color = income.bucket
+        #,size = freq
+    )
+  ) +
+  geom_col(position =
+           # position_stack(reverse = T)
+             position_dodge()
+           ) +
+  scale_fill_viridis_d(
+    name = "Income range"
+
+    ,aesthetics = c('color', 'fill')
+  ) +
+  scale_x_continuous(
+    labels = scales::label_percent()
+  ) +
+  theme_ipsum(grid = 'X') +
+  facet_wrap(vars(religion)
+             )
 
 
-## pull and peeks w school demographic data -----------------------------------
+
+
+# Using Regex, and totals mixed in --------------------------------------------
+
+#' pull example data from ACS using `tidycensus`
+#'
+#' about the table: https://censusreporter.org/tables/B02001/
+?tidycensus::get_acs
+demos <-
+  tidycensus::get_acs(
+    geography = 'county'
+    ,table = 'B02001'
+    ,year = 2022
+    ,state = 36
+    ,survey = "acs5") %>%
+  rename_with(tolower)
+
+demos
+
+# let's just use the 5 boros of NYC for simplicity -- we can use Regex to
+# filter!
+boros.regx <- 'Kings|Queens|^New York|Richmond|Bronx'
+nydemos <- demos %>%
+  filter(grepl(boros.regx, name))
+
+# make sure we did it right!
+nydemos %>% count(geoid, name)
+
+# we can also clean the Boro names... with regex!
+nydemos$name %>% head()
+nydemos <- nydemos %>%
+  mutate(name = str_extract(name, boros.regx))
+# (can you think of a second way of doing this?)
+nydemos
+
+
+# get labls
+acs.vars <- tidycensus::load_variables(year = 2022
+                                       ,dataset = 'acs5')
+
+acs.vars
+# clean the labels using regex
+acs.vars$label <- acs.vars$label %>%
+  gsub('!!', ' ', .) %>%
+  gsub('Estimate |:$|Total: ', '', .)
+
+# for the tabel we pulled:
+acs.vars %>% filter(grepl('^B02001', name))
+
+# We can join the labels to the data now.
+nydemos <- nydemos  %>%
+  left_join(acs.vars[c('name', 'label')]
+            ,by = c('variable' = 'name'))
+
+nydemos
+
+#' from the labels of the variable, we see that 001 is a total -- and 008 is a
+#' subtotal of two subcategories of "two or more races"
+#'
+#' Having totals within a dataframe with the constiuent parts can be confusing
+#' and pose issues for plotting and analysis.
+nydemos %>%
+  ggplot(aes(fill = label
+             ,y = estimate
+             ,x = name)
+  ) +
+  geom_col()
+
+# (what's the issue with this plot? How do we fix it?)
+
+
+
+
+# (drop totals to avoid double-counting!)
+nydemos %>%
+  filter( !grepl('Total|Two or More Races: ',
+                 label)) %>%
+  ggplot(aes(fill = label
+             ,y = estimate
+             ,x = name)
+  ) +
+  geom_col()
+
+
+
+# pull and peeks w school demographic data -----------------------------------
 
 # from:
 # https://data.cityofnewyork.us/Education/2019-20-Demographic-Snapshot-School/nie4-bv6q
@@ -254,6 +374,8 @@ tmp <- schd.trimmed %>%
 # tidying with regex  -----------------------------------------
 
 
+## separating columns w regex ----------------------------------------------
+
 #' the package `untidydata` bundles "untidy datasets made for the purpose of
 #' teaching the tidyverse."
 #'
@@ -279,85 +401,33 @@ messy.data %>%
          )
 
 
+## pivoting with regex -----------------------------------------------------
 
-# totals mixed in ---------------------------------------------------------
+#' this is bundled with the `tidyr` package, part of the tidyverse:
+pop <- tidyr::world_bank_pop
 
-#' pull example data from ACS using `tidycensus`
+# we can look at the documentation for the dataset the same way we look at
+# documentation for a function:
+?tidyr::world_bank_pop
+
+# Right now the dataset is long by country and indicator, and wide by year.
+
+#' what if we want to reverse that? Get the table long by country and year, but
+#' wide by indicator?
 #'
-#' about the table: https://censusreporter.org/tables/B02001/
-?tidycensus::get_acs
-demos <-
-  tidycensus::get_acs(
-     geography = 'county'
-    ,table = 'B02001'
-    ,year = 2022
-    ,state = 36
-    ,survey = "acs5") %>%
-  rename_with(tolower)
-
-# let's just use the 5 boros of NYC for simplicity -- we can use Regex to
-# filter!
-boros.regx <- 'Kings|Queens|^New York|Richmond|Bronx'
-nydemos <- demos %>%
-  filter(grepl(boros.regx, name))
-
-# make sure we did it right!
-nydemos %>%
-  count(geoid, name)
-
-# we can also clean the Boro names... with regex!
-nydemos$name %>% head()
-nydemos <- nydemos %>%
-  mutate(name = str_extract(name, boros.regx))
-# (can you think of a second way of doing this?)
-nydemos
-
-
-# get labls
-acs.vars <- tidycensus::load_variables(year = 2022
-                                       ,dataset = 'acs5')
-
-acs.vars
-# clean the labels using regex
-acs.vars$label <- acs.vars$label %>%
-  gsub('!!', ' ', .) %>%
-  gsub('Estimate |:$|Total: ', '', .)
-
-# for the tabel we pulled:
-acs.vars %>% filter(grepl('^B02001', name))
-
-# We can join the labels to the data now.
-nydemos <- nydemos  %>%
-  left_join(acs.vars[c('name', 'label')]
-            ,by = c('variable' = 'name'))
-
-nydemos
-
-#' from the labels of the variable, we see that 001 is a total -- and 008 is a
-#' subtotal of two subcategories of "two or more races"
+#' That would make time-series analysis in R easier.
 #'
-#' Having totals within a dataframe with the constiuent parts can be confusing
-#' and pose issues for plotting and analysis.
-nydemos %>%
-  ggplot(aes(fill = label
-             ,y = estimate
-             ,x = name)
-  ) +
-  geom_col()
+#' We can pivot the table longer, by all year columns, using the special "any
+#' number" regex character:
 
-# (what's the issue with this plot? How do we fix it?)
+pop
 
-
+pop %>%
+  pivot_longer(
+    matches('\\d')
+    ,names_to = 'year'
+  )
 
 
-# (drop totals to avoid double-counting!)
-nydemos %>%
-  filter( !grepl('Total|Two or More Races: ',
-                 label)) %>%
-  ggplot(aes(fill = label
-             ,y = estimate
-             ,x = name)
-  ) +
-  geom_col()
 
 
