@@ -5,6 +5,14 @@ options(tigris_use_cache=TRUE)
 rm(list = ls())
 
 
+# get a census api key and link it to tidycensus --------------------------
+
+# click the link this function points us to -- http://api.census.gov/data/key_signup.html
+?tidycensus::census_api_key
+
+# pretend the below is an api key that was sent by the census buruea
+#tidycensus::census_api_key('fasdhjfasdhju03243271849012lfasj', install  = T)
+
 # to make sure we have the packages installed: ---------------------------------
 
 # (we only have to install once, until we want to update or are on a different
@@ -17,7 +25,8 @@ rm(list = ls())
 # get median income by borough --------------------------------------------
 
 # get NY counties (areas and name)
-ny.cos <- tigris::counties(state =36, year = 2021) %>%
+ny.cos <- tigris::counties(state = 36,
+                           year = 2021) %>%
   rename_with(tolower)
 
 # get NY neighborhood-level income
@@ -31,6 +40,7 @@ med.hh.incs <-
     ,survey = "acs5") %>%
   rename_with(tolower)
 
+ny.cos
 med.hh.incs
 
 # let's just use the 5 boros of NYC for simplicity -- we can use Regex to
@@ -48,8 +58,6 @@ ny.inc <-
 
 ny.inc
 
-
-
 # activity! ---------------------------------------------------------------
 
 # let's see how many nbhds are in each boro -- mostly to check that we have the
@@ -64,10 +72,14 @@ ny.inc %>%
   ggplot(
     aes(
       x = estimate
+      ,fill =
       )
   ) +
   geom_histogram(
     fill = '#008888'
+    ,color =
+      'white'
+    ,linewidth = .3
     ,binwidth = 5000
   )
 
@@ -89,17 +101,18 @@ ny.inc %>%
     ,ncol = 1
   )
 
-
 ny.inc %>%
   ggplot(
     aes(
       x = estimate
-      ,fill = name
+      #,fill = name
     )
   ) +
   geom_histogram(
     binwidth = 5000
-  )
+  ) +
+  facet_wrap( vars(name) )
+
 
 
 
