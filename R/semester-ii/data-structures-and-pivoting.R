@@ -1,7 +1,5 @@
 library(tidyverse)
 
-
-
 # load data ---------------------------------------------------------------
 
 # an example from the Wickham paper
@@ -15,6 +13,7 @@ rel
 # peek --------------------------------------------------------------------
 
 rel
+
 
 # neaten column names
 rel <- rel %>%
@@ -38,12 +37,9 @@ rel
 #'
 #' We'll use the function `?pivot_longer`
 #'
+rel
 
 rel %>% head()
-rel %>%
-  pivot_longer(cols = 2:ncol(.)) %>%
-  head()
-
 
 # new object can be trel for tidy religion
 trel <- rel %>%
@@ -53,20 +49,72 @@ trel <- rel %>%
     ,values_to = 'freq'
   )
 
+# using a regular expression to specify which columns:
+trel <- rel %>%
+  pivot_longer(
+     cols = matches('k$')
+    ,names_to = 'income.bucket'
+    ,values_to = 'freq'
+  )
+
+
 trel
 
 
+# a review and primer on selecting columns --------------------------------
+
+
+# we can refer to columns a number of different ways...
+
+# ...by numeric index
+rel %>%
+  select( 2:4 )
+
+# ...with a regular expression or select helper:
+rel %>%
+  select( matches('k$'))
+
+rel %>%
+  select(ends_with('k'))
+
+# ...with the column name itself:
+rel %>%
+  select("Under 10k")
+
+rel %>%
+  select(religion)
+
+# ... or with selection rules based on what's in the column:
+# (a little more rare and more complicated, but can be very useful)
+rel %>%
+  select( where(is.numeric) )
+
+rel %>%
+  select( where(is.character ))
+
+# (select columns where the sum of their values is greater than 2000.)
+rel %>%
+  select( where(is.numeric)) %>%
+  select( where( ~sum(.x) > 2000) )
+
+# we can use all of these selection rules to refer to columns within
+# pivot_longer, within rename_with, with select, etc..!
+
 # difference in how we can analyize: -------------------------------------
+
+# this subsection will show some differences in working with the tidy vs untidy
+# data
 
 rel
 trel
 
-
 ## what if we want the total by religion? -------------------------
+
+rel
 
 # Untidy totals by religion:
 rel %>%
-  mutate(tot = rowSums(rel[2:ncol(rel)]))
+  mutate( tot = rowSums(rel[2:ncol(rel)]) )
 # it's not too bad, but we need to know which columns we're summing by and
 # specify explicitly (all but the first)
 
@@ -78,6 +126,8 @@ trel %>%
 
 # total by income bucket: -------------------------------------------------
 
+rel
+
 # Untidy totals by income:
 colSums(rel[2:ncol(rel)])
 # we change the function and specify a set of columns
@@ -88,7 +138,8 @@ trel %>%
   summarise(tot = sum(freq))
 # Nothing changes except the grouping variable.
 
-# with tidy data, we can also add manipulations as new column onto the same table:
+# with tidy data, we can also add manipulations as new column onto the same
+# table:
 trel <- trel %>%
   group_by(religion) %>%
   mutate(total.by.religion =
@@ -107,7 +158,8 @@ library(hrbrthemes)
 trel  <- trel %>%
   arrange(total.by.religion) %>%
   mutate(religion =
-           factor(religion, levels = unique(.$religion))
+           factor(religion,
+                  levels = unique(.$religion))
          )
 
 trel <- trel %>%
@@ -127,7 +179,6 @@ trel %>%
     name = "Income range"
   ) +
   theme_ipsum(grid = 'X')
-
 
 
 trel %>%
@@ -150,7 +201,6 @@ trel %>%
   theme_ipsum(grid = 'X')
 
 
-
 # more complicated example ------------------------------------------------
 
 
@@ -170,8 +220,6 @@ schd <-
   RSocrata::read.socrata( url )
 
 schd <- schd %>% tibble()
-
-
 
 # check duplicates of school names or DBNs
 schd %>%
@@ -194,11 +242,11 @@ demo.regx <- 'asian|black|hispanic|multiple_race|white'
 
 schd.trimmed <- schd %>%
   select(dbn, school_name, year, total_enrollment,
-         matches( demo.regx))
+         matches( demo.regx ))
 
+schd.trimmed
 
 ## pivoting longer ---------------------------------------------------------
-
 
 # the dataset has two columns for each demographic group - i.e., "asian" and
 # "asian_1." From the documentation, we can see that the ones with the "_1"
@@ -259,6 +307,8 @@ tmp <- schd.trimmed %>%
 ?untidydata::pre_post
 
 messy.data <- untidydata::pre_post
+messy.data <- messy.data %>% tibble()
+
 messy.data
 
 # how do we get the g1/g2 and the hi/lo as two sets of variables?

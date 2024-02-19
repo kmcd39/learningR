@@ -225,8 +225,128 @@ ggplot() +
 #' instead of larger areal levels?
 
 
+# A data viz using census geographies: ------------------------------------
 
-# spatial filters ---------------------------------------------------------
+#' compare 5 Boros median income to that of the metro area:
+#'
+
+co.incs <-
+  map2_dfr(ny.metro.cos$statefp
+           ,ny.metro.cos$countyfp
+           ,~tidycensus::get_acs(
+             geography = 'county'
+             ,state = .x
+             ,county = .y
+             ,variables = c('medhhinc' = 'B19013_001')
+             ,year = 2022
+           )
+  )%>%
+  rename_with(tolower)
+
+# for metro area:
+cbsa.hh.inc <-
+  tidycensus::get_acs(
+    geography = 'cbsa'
+    ,variables = c('medhhinc' = 'B19013_001')
+    ,year = 2022) %>%
+  rename_with(tolower)
+
+ny.cbsa
+cbsa.hh.inc <- cbsa.hh.inc %>%
+  filter(geoid == '35620')
+
+co.incs
+
+boros.regx <- 'Kings|Queens|^New York|Richmond|Bronx'
+boro.incs <- co.incs %>%
+  filter(grepl(boros.regx, name))
+
+boro.incs %>%
+  mutate(name =
+           gsub(' County, New York', '', name)
+         ) %>%
+  arrange( estimate ) %>%
+  mutate(name =
+           factor(name, levels = .$name)
+         ) %>%
+  ggplot(
+    aes( y = name
+        ,x = estimate
+        ,fill = estimate)
+  ) +
+  geom_col() +
+  geom_vline(xintercept = cbsa.hh.inc$estimate
+             ,linetype = 'dashed'
+             ,color = 'grey35') +
+  geom_label(
+    data = cbsa.hh.inc
+    ,aes(x = estimate)
+    ,y = .8
+    #,hjust = 1.05
+    ,color = 'grey20'
+    ,fontface = 'bold'
+    ,label = 'Metro area median'
+  ) +
+  scale_x_continuous(
+    name = 'Median household income',
+    labels = scales::label_comma(prefix = '$')
+    ) +
+  scale_y_discrete(name = NULL
+                   ) +
+  scale_fill_continuous(
+    guide = 'none'
+  ) +
+  hrbrthemes::theme_ipsum(
+    grid = 'X'
+    ,plot_title_size = 14
+  ) +
+  labs(
+  title = str_wrap(width = 65
+                   ,"Manhattan and Staten Island have higher median incomes than the Metro area; other NYC boroughs are lower income."
+                   )
+  )
+
+
+
+
+## or a map: ---------------------------------------------------------------
+
+#install.packages('ggthemes')
+#install.packages('ggsflabel')
+
+
+library(colorspace)
+
+hwys
+tmp <- co.incs %>%
+  rename(fullname = name) %>%
+  left_join(ny.metro.cos[c('geoid', 'name')]
+            ) %>%
+  st_sf()
+
+tmp %>%
+  ggplot() +
+  geom_sf(aes(fill = estimate)
+          ,color = 'white'
+          ) +
+  geom_sf_text(
+    data = st_centroid(tmp),
+    aes(label = name)
+    ,size = 2.5
+    ,check_overlap = T
+  ) +
+  scale_fill_continuous_diverging(
+    palette = 'Green-Brown'
+    ,mid = cbsa.hh.inc$estimate
+    ,labels = scales::label_comma(prefix = '$')
+    ,rev = T
+  ) +
+  ggthemes::theme_map()
+
+# spatial manipulation ----------------------------------------------------
+
+
+## spatial filters ---------------------------------------------------------
 
 #' Earlier, we trimmed all the counties in the 3 states to just the NY Metro
 #' area. We had used the CBSAFP column in the county data.
@@ -258,7 +378,6 @@ ggplot() +
   )
 
 #' what's the issue??????
-#'
 #'
 #' The counties just outside the metro area overlapped at the boundary! How
 #' annoying. However, we can resolves this using a different join predicate.
@@ -303,9 +422,7 @@ ggplot() +
 # Visual check confirms this worked.
 
 
-
-
-# Combining what we learned for more complex analysis ---------------------
+## Combining what we learned for more complex analysis ---------------------
 
 #' what if we want to look at the population in the NY metro area within a
 #' distance threshold from a highway? What if we want to compare the incomes of
@@ -345,19 +462,27 @@ nyhwys %>% tibble() %>% count(rttyp, mtfcc)
 #' See: https://www2.census.gov/geo/pdfs/reference/mtfccs2021.pdf
 
 
-# let's get population data from the census bureau ------------------------
+## Looking at poopulation proportions very close to a highway  ------------------------
+
+# We want a high level of spatial precision here, so use blocks.
+
+?tidycensus::get_decennial()
+#tidycensus::load_variables(year =2020, dataset = 'dp') %>% View()
+
 
 
 bgpops <-
   map2_dfr(ny.metro.cos$statefp
            ,ny.metro.cos$countyfp
-           , ~tidycensus::get_acs(
-             geography = 'block group'
-             ,variables = c('pop' = 'B02001_001')
-             ,year = 2021
+           #, ~tidycensus::get_acs(
+           , ~tidycensus::get_decennial(
+             geography = 'block'
+             ,variables = c('pop' = 'P1_001NA')
+             ,year = 2020
              ,state = .x
              ,county = .y
-             ,survey = "acs5")
+             ,survey = "pl"
+             )
            ) %>%
   rename_with(tolower)
 
@@ -437,6 +562,29 @@ near.hwy.by.county %>%
 
 
 # (assignment! How can we improve this visual? Or this analysis?)
+
+
+
+# alternate approach: querying using census blocks instead of BGs --------
+
+#' Because we're looking at fairly small distances from highways, a higher
+#' spatial precision could be pretty meaningful for this analysis. We could
+#' achieve this by using blocks instead of block groups, which requires pulling
+#' from the decennial census instead of ACS:
+bpops <-
+  map2_dfr(ny.metro.cos$statefp
+           ,ny.metro.cos$countyfp
+           #, ~tidycensus::get_acs(
+           , ~tidycensus::get_decennial(
+             geography = 'block'
+             ,variables = c('pop' = 'P1_001NA')
+             ,year = 2020
+             ,state = .x
+             ,county = .y
+             ,survey = "pl"
+           )
+  ) %>%
+  rename_with(tolower)
 
 
 

@@ -245,6 +245,11 @@ attrs %>% glimpse()
 attrs
 library(colorspace)
 
+wtr <- tigris::area_water(
+  state = 36, county = visaux::nyboros
+) %>% rename_with(tolower)
+wttr <- geox::trim.tigris.waters(wtr)
+
 attrsf %>%
   filter( as.numeric(aland.acre) >
             0) %>%
@@ -253,7 +258,18 @@ attrsf %>%
     aes( fill = med.hhinc)
     ,color = NA
   ) +
-  #scale_fill_viridis_c()
+  geom_sf(data = wttr
+          ,color = '#c5e4fc'
+          ,fill = '#c5e4fc') +
+  scale_fill_viridis_c(
+    name = "NYC Median household\nincome by neighborhood\n"
+    ,labels = scales::label_comma(prefix = '$')
+  ) +
+  theme_void() +
+  theme(legend.position =
+          c(.15, .8)
+        )
+
   scale_fill_binned_divergingx(
     mid =
       #manhattan.median
