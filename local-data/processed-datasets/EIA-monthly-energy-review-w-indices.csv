@@ -1,0 +1,251 @@
+"msn","year","month","yyyymm","value","column_order","description","unit","tbl","is.tot","lbl","index"
+"TETCEUS",1973,13,197313,4720.916,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",100
+"TERCEUS",1973,13,197313,908.362,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",100
+"TECCEUS",1973,13,197313,607.213,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",100
+"TEICEUS",1973,13,197313,1890.915,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",100
+"TEACEUS",1973,13,197313,1314.426,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",100
+"TETCEUS",1974,13,197413,4561.017,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",96.6129666361359
+"TERCEUS",1974,13,197413,874.571,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",96.2800073098611
+"TECCEUS",1974,13,197413,585.07,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",96.3533389436656
+"TEICEUS",1974,13,197413,1820.933,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",96.2990404116526
+"TEACEUS",1974,13,197413,1280.443,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",97.4146129184907
+"TETCEUS",1975,13,197513,4427.937,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",93.7940221770521
+"TERCEUS",1975,13,197513,868.858,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",95.6510730303557
+"TECCEUS",1975,13,197513,581.739,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",95.8047670257389
+"TEICEUS",1975,13,197513,1686.539,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",89.19168762213
+"TEACEUS",1975,13,197513,1290.801,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",98.2026375010841
+"TETCEUS",1976,13,197613,4694.612,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",99.4428199951026
+"TERCEUS",1976,13,197613,914.464,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",100.671758616058
+"TECCEUS",1976,13,197613,626.163,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",103.12081592456
+"TEICEUS",1976,13,197613,1801.247,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",95.2579571265763
+"TEACEUS",1976,13,197613,1352.738,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",102.914732362263
+"TETCEUS",1977,13,197713,4835.148,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",102.419699905696
+"TERCEUS",1977,13,197713,936.124,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",103.056270517701
+"TECCEUS",1977,13,197713,643.482,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",105.973027586695
+"TEICEUS",1977,13,197713,1850.312,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",97.8527326717489
+"TEACEUS",1977,13,197713,1405.23,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",106.908262618055
+"TETCEUS",1978,13,197813,4884.113,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",103.456892687775
+"TERCEUS",1978,13,197813,939.836,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",103.46491817139
+"TECCEUS",1978,13,197813,646.169,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",106.415541169244
+"TEICEUS",1978,13,197813,1835.875,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",97.0892398653562
+"TEACEUS",1978,13,197813,1462.234,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",111.245060581577
+"TETCEUS",1979,13,197913,4949.897,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",104.850351075935
+"TERCEUS",1979,13,197913,920.341,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",101.318747371643
+"TECCEUS",1979,13,197913,660.808,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",108.826392056824
+"TEICEUS",1979,13,197913,1916.639,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",101.360399594905
+"TEACEUS",1979,13,197913,1452.11,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",110.474838446592
+"TETCEUS",1980,13,198013,4756.328,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",100.750108665352
+"TERCEUS",1980,13,198013,914.682,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",100.695757858651
+"TECCEUS",1980,13,198013,662.033,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",109.028133455641
+"TEICEUS",1980,13,198013,1782.245,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",94.2530468053826
+"TEACEUS",1980,13,198013,1397.368,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",106.31013080995
+"TETCEUS",1981,13,198113,4636.684,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",98.2157699904002
+"TERCEUS",1981,13,198113,882.024,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",97.1004951770329
+"TECCEUS",1981,13,198113,663.767,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",109.313700464252
+"TEICEUS",1981,13,198113,1707.432,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",90.296602438502
+"TEACEUS",1981,13,198113,1383.461,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",105.252102438631
+"TETCEUS",1982,13,198213,4404.478,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",93.2971059006345
+"TERCEUS",1982,13,198213,876.479,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",96.4900557266817
+"TECCEUS",1982,13,198213,666.041,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",109.688198375199
+"TEICEUS",1982,13,198213,1509.361,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",79.8217265186431
+"TEACEUS",1982,13,198213,1352.598,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",102.904081325232
+"TETCEUS",1983,13,198313,4383.992,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",92.8631646909202
+"TERCEUS",1983,13,198313,870.747,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",95.8590297700696
+"TECCEUS",1983,13,198313,673.911,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",110.984283933315
+"TEICEUS",1983,13,198313,1480.471,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",78.2938947546558
+"TEACEUS",1983,13,198313,1358.862,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",103.380639153516
+"TETCEUS",1984,13,198413,4612.908,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",97.7121389154139
+"TERCEUS",1984,13,198413,906.724,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",99.8196754157484
+"TECCEUS",1984,13,198413,707.339,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",116.489436161611
+"TEICEUS",1984,13,198413,1607.486,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",85.0110131867376
+"TEACEUS",1984,13,198413,1391.359,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",105.852973084829
+"TETCEUS",1985,13,198513,4605.41,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",97.5533138060495
+"TERCEUS",1985,13,198513,913.479,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",100.563321671316
+"TECCEUS",1985,13,198513,707.728,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",116.553499348663
+"TEICEUS",1985,13,198513,1561.176,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",82.5619343016476
+"TEACEUS",1985,13,198513,1423.027,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",108.262237661154
+"TETCEUS",1986,13,198613,4615.724,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",97.7717883563275
+"TERCEUS",1986,13,198613,909.527,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",100.128252833122
+"TECCEUS",1986,13,198613,713.559,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",117.513788407033
+"TEICEUS",1986,13,198613,1519.371,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",80.3510998643514
+"TEACEUS",1986,13,198613,1473.267,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",112.084438378425
+"TETCEUS",1987,13,198713,4775.616,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",101.158673443882
+"TERCEUS",1987,13,198713,939.158,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",103.390278325161
+"TECCEUS",1987,13,198713,738.771,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",121.665873424976
+"TEICEUS",1987,13,198713,1577.414,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",83.4206720027077
+"TEACEUS",1987,13,198713,1520.272,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",115.660524061453
+"TETCEUS",1988,13,198813,4998.283,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",105.875279289019
+"TERCEUS",1988,13,198813,986.748,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",108.629379036111
+"TECCEUS",1988,13,198813,775.126,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",127.653064081303
+"TEICEUS",1988,13,198813,1656.48,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",87.6020339359516
+"TEACEUS",1988,13,198813,1579.929,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",120.199159176705
+"TETCEUS",1989,13,198913,5084.633,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",107.704373473284
+"TERCEUS",1989,13,198913,1009.371,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",111.119905940583
+"TECCEUS",1989,13,198913,796.928,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",131.243566919681
+"TEICEUS",1989,13,198913,1687.206,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",89.2269615503605
+"TEACEUS",1989,13,198913,1591.128,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",121.051166060318
+"TETCEUS",1990,13,199013,5037.975,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",106.716048326215
+"TERCEUS",1990,13,199013,961.853,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",105.888731584985
+"TECCEUS",1990,13,199013,790.252,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",130.144117467841
+"TEICEUS",1990,13,199013,1699.132,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",89.8576615025001
+"TEACEUS",1990,13,199013,1586.738,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",120.717179970573
+"TETCEUS",1991,13,199113,4990.804,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",105.716856643922
+"TERCEUS",1991,13,199113,978.765,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",107.750544386489
+"TECCEUS",1991,13,199113,792.106,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",130.449446899194
+"TEICEUS",1991,13,199113,1654.883,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",87.5175774691089
+"TEACEUS",1991,13,199113,1565.05,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",119.067182176859
+"TETCEUS",1992,13,199213,5088.755,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",107.791687037007
+"TERCEUS",1992,13,199213,980.408,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",107.931419412085
+"TECCEUS",1992,13,199213,793.982,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",130.758399441382
+"TEICEUS",1992,13,199213,1728.89,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",91.4313969691922
+"TEACEUS",1992,13,199213,1585.474,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",120.621016321953
+"TETCEUS",1993,13,199313,5182.036,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",109.7675959496
+"TERCEUS",1993,13,199313,1038.397,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",114.315328030014
+"TECCEUS",1993,13,199313,817.53,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",134.636445530646
+"TEICEUS",1993,13,199313,1725.768,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",91.2662917159153
+"TEACEUS",1993,13,199313,1600.341,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",121.752080375769
+"TETCEUS",1994,13,199413,5262.042,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",111.462309433169
+"TERCEUS",1994,13,199413,1031.348,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",113.539315823427
+"TECCEUS",1994,13,199413,831.755,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",136.979116059768
+"TEICEUS",1994,13,199413,1755.605,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",92.8442050541669
+"TEACEUS",1994,13,199413,1643.335,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",125.02301384787
+"TETCEUS",1995,13,199513,5324.415,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",112.783514894143
+"TERCEUS",1995,13,199513,1038.678,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",114.34626283354
+"TECCEUS",1995,13,199513,850.191,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",140.015282940253
+"TEICEUS",1995,13,199513,1756.994,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",92.9176615553846
+"TEACEUS",1995,13,199513,1678.552,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",127.70228221292
+"TETCEUS",1996,13,199613,5518.141,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",116.887082930516
+"TERCEUS",1996,13,199613,1098.648,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",120.948256311911
+"TECCEUS",1996,13,199613,881.411,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",145.156806590109
+"TEICEUS",1996,13,199613,1809.471,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",95.692878844369
+"TEACEUS",1996,13,199613,1728.61,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",131.510636582052
+"TETCEUS",1997,13,199713,5589.454,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",118.397658420527
+"TERCEUS",1997,13,199713,1089.175,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",119.905390141816
+"TECCEUS",1997,13,199713,924.714,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",152.288241523156
+"TEICEUS",1997,13,199713,1827.853,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",96.6650008064879
+"TEACEUS",1997,13,199713,1747.712,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",132.963894506043
+"TETCEUS",1998,13,199813,5636.862,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",119.401870314998
+"TERCEUS",1998,13,199813,1095.918,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",120.647715338158
+"TECCEUS",1998,13,199813,944.868,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",155.607340422554
+"TEICEUS",1998,13,199813,1810.824,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",95.7644315053823
+"TEACEUS",1998,13,199813,1785.253,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",135.819970085802
+"TETCEUS",1999,13,199913,5700.389,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",120.747520184642
+"TERCEUS",1999,13,199913,1120.558,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",123.360290280747
+"TECCEUS",1999,13,199913,958.783,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",157.898958026261
+"TEICEUS",1999,13,199913,1789.239,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",94.6229206495268
+"TEACEUS",1999,13,199913,1831.809,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",139.361896371496
+"TETCEUS",2000,13,200013,5888.731,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",124.737042556995
+"TERCEUS",2000,13,200013,1185.098,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",130.465387147415
+"TECCEUS",2000,13,200013,1021.069,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",168.156643550122
+"TEICEUS",2000,13,200013,1794.897,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",94.9221408683098
+"TEACEUS",2000,13,200013,1887.666,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",143.611431910203
+"TETCEUS",2001,13,200113,5777.924,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",122.389892131103
+"TERCEUS",2001,13,200113,1170.981,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",128.911271057134
+"TECCEUS",2001,13,200113,1025.959,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",168.961962276829
+"TEICEUS",2001,13,200113,1721.589,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",91.0452875988609
+"TEACEUS",2001,13,200113,1859.394,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",141.460531060706
+"TETCEUS",2002,13,200213,5820.177,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",123.284909115095
+"TERCEUS",2002,13,200213,1202.721,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",132.405472708017
+"TECCEUS",2002,13,200213,1025.53,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",168.891311615529
+"TEICEUS",2002,13,200213,1693.195,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",89.5436865221335
+"TEACEUS",2002,13,200213,1898.731,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",144.453244229801
+"TETCEUS",2003,13,200313,5886.568,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",124.691225177487
+"TERCEUS",2003,13,200313,1231.704,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",135.596161001891
+"TECCEUS",2003,13,200313,1035.868,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",170.59384433469
+"TEICEUS",2003,13,200313,1702.412,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",90.031122498896
+"TEACEUS",2003,13,200313,1916.584,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",145.811479687712
+"TETCEUS",2004,13,200413,5993.882,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",126.964385725143
+"TERCEUS",2004,13,200413,1227.137,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",135.093387878401
+"TECCEUS",2004,13,200413,1051.83,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",173.222575932992
+"TEICEUS",2004,13,200413,1743.315,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",92.1942551621834
+"TEACEUS",2004,13,200413,1971.599,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",149.996956846563
+"TETCEUS",2005,13,200513,6007.149,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",127.245411695527
+"TERCEUS",2005,13,200513,1260.409,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",138.756244757046
+"TECCEUS",2005,13,200513,1067.113,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",175.73948515595
+"TEICEUS",2005,13,200513,1687.261,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",89.2298701951172
+"TEACEUS",2005,13,200513,1992.366,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",151.576886032382
+"TETCEUS",2006,13,200613,5929.496,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",125.600540234141
+"TERCEUS",2006,13,200613,1191.281,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",131.146062913244
+"TECCEUS",2006,13,200613,1042.125,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",171.624289993791
+"TEICEUS",2006,13,200613,1672.796,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",88.4648966241211
+"TEACEUS",2006,13,200613,2023.293,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",153.92977619128
+"TETCEUS",2007,13,200713,6015.697,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",127.426478251255
+"TERCEUS",2007,13,200713,1240.2,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",136.531470933394
+"TECCEUS",2007,13,200713,1076.611,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",177.303680915922
+"TEICEUS",2007,13,200713,1672.562,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",88.4525216627929
+"TEACEUS",2007,13,200713,2026.325,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",154.160447221829
+"TETCEUS",2008,13,200813,5823.274,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",123.350510790702
+"TERCEUS",2008,13,200813,1234.352,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",135.887674737605
+"TECCEUS",2008,13,200813,1074.343,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",176.930171126112
+"TEICEUS",2008,13,200813,1619.048,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",85.6224631990333
+"TEACEUS",2008,13,200813,1895.531,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",144.209791954815
+"TETCEUS",2009,13,200913,5403.828,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",114.4656672561
+"TERCEUS",2009,13,200913,1156.986,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",127.370585735643
+"TECCEUS",2009,13,200913,1006.761,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",165.800304011937
+"TEICEUS",2009,13,200913,1408.527,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",74.4891758751716
+"TEACEUS",2009,13,200913,1831.553,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",139.342420189497
+"TETCEUS",2010,13,201013,5593.816,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",118.490055743419
+"TERCEUS",2010,13,201013,1210.145,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",133.222768015395
+"TECCEUS",2010,13,201013,1025.103,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",168.820990327941
+"TEICEUS",2010,13,201013,1511.591,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",79.9396588424123
+"TEACEUS",2010,13,201013,1846.976,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",140.515784076091
+"TETCEUS",2011,13,201113,5454.851,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",115.546453273051
+"TERCEUS",2011,13,201113,1149.417,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",126.537327629293
+"TECCEUS",2011,13,201113,990.21,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",163.074571855346
+"TEICEUS",2011,13,201113,1502.514,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",79.4596266886666
+"TEACEUS",2011,13,201113,1812.71,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",137.908866684013
+"TETCEUS",2012,13,201213,5236.478,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",110.920804352376
+"TERCEUS",2012,13,201213,1043.227,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",114.847054368192
+"TECCEUS",2012,13,201213,931.893,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",153.470528463653
+"TEICEUS",2012,13,201213,1485.731,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",78.5720669622907
+"TEACEUS",2012,13,201213,1775.627,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",135.087635211111
+"TETCEUS",2013,13,201313,5359.017,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",113.516465872301
+"TERCEUS",2013,13,201313,1099.904,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",121.086527177491
+"TECCEUS",2013,13,201313,958.342,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",157.826331122687
+"TEICEUS",2013,13,201313,1505.358,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",79.6100300648099
+"TEACEUS",2013,13,201313,1795.413,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",136.59293105888
+"TETCEUS",2014,13,201413,5414.028,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",114.681727020773
+"TERCEUS",2014,13,201413,1114.75,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",122.720897615708
+"TECCEUS",2014,13,201413,969.657,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",159.689762900333
+"TEICEUS",2014,13,201413,1515.929,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",80.1690715870359
+"TEACEUS",2014,13,201413,1813.692,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",137.983576100899
+"TETCEUS",2015,13,201513,5262.2,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",111.465656241289
+"TERCEUS",2015,13,201513,1036.523,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",114.109022614332
+"TECCEUS",2015,13,201513,931.662,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",153.432485799876
+"TEICEUS",2015,13,201513,1456.848,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",77.0446053894543
+"TEACEUS",2015,13,201513,1837.167,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",139.769526774425
+"TETCEUS",2016,13,201613,5169.044,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",109.49239511993
+"TERCEUS",2016,13,201613,981.216,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",108.020370733254
+"TECCEUS",2016,13,201613,892.922,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",147.052516991566
+"TEICEUS",2016,13,201613,1425.88,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",75.4068797381162
+"TEACEUS",2016,13,201613,1869.026,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",142.193322408413
+"TETCEUS",2017,13,201713,5131.529,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",108.697740014862
+"TERCEUS",2017,13,201713,946.429,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",104.190730127416
+"TECCEUS",2017,13,201713,866.176,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",142.647802336248
+"TEICEUS",2017,13,201713,1432.083,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",75.734921982215
+"TEACEUS",2017,13,201713,1886.842,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",143.548742949394
+"TETCEUS",2018,13,201813,5277.882,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",111.797837538308
+"TERCEUS",2018,13,201813,1015.449,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",111.789022438191
+"TECCEUS",2018,13,201813,885.424,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",145.817694943949
+"TEICEUS",2018,13,201813,1458.875,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",77.151802169849
+"TEACEUS",2018,13,201813,1918.136,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",145.92955404108
+"TETCEUS",2019,13,201913,5146.993,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",109.025303563969
+"TERCEUS",2019,13,201913,957.961,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",105.460268042917
+"TECCEUS",2019,13,201913,832.455,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",137.094396859092
+"TEICEUS",2019,13,201913,1432.369,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",75.7500469349495
+"TEACEUS",2019,13,201913,1924.207,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",146.391428654028
+"TETCEUS",2020,13,202013,4580.512,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",97.0259161569492
+"TERCEUS",2020,13,202013,889.888,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",97.9662293226709
+"TECCEUS",2020,13,202013,735.287,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",121.092104418054
+"TEICEUS",2020,13,202013,1322.558,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",69.9427525827443
+"TEACEUS",2020,13,202013,1632.78,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",124.220001734597
+"TETCEUS",2021,13,202113,4903.342,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",103.864207708843
+"TERCEUS",2021,13,202113,924.235,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",101.747431090248
+"TECCEUS",2021,13,202113,786.676,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",129.555197270151
+"TEICEUS",2021,13,202113,1383.38,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",73.1592906079861
+"TEACEUS",2021,13,202113,1809.05,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",137.630418144498
+"TETCEUS",2022,13,202213,4964.373,14,"Total Energy CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_01.csv",TRUE,"",105.156986483132
+"TERCEUS",2022,13,202213,938.955,8,"Total Energy Residential Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_02.csv",FALSE,"Residential Sector",103.3679304066
+"TECCEUS",2022,13,202213,798.047,11,"Total Energy Commercial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_03.csv",FALSE,"Commercial Sector",131.427851511743
+"TEICEUS",2022,13,202213,1390.875,14,"Total Industrial Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_04.csv",FALSE,"Industrial Sector",73.5556595616408
+"TEACEUS",2022,13,202213,1836.496,12,"Total Energy Transportation Sector CO2 Emissions","Million Metric Tons of Carbon Dioxide","MER_T11_05.csv",FALSE,"Transportation Sector",139.718477875514
