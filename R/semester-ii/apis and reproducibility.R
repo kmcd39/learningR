@@ -14,6 +14,10 @@ library(tidyverse)
 #' The major advantage of working with APIs are ~convenience~ and
 #' ~reproducibility~.
 #'
+#' It's more convenient to adjust small aspects of what you pulled (everything
+#' the same, but actually an extra few years) -- change one thing in your script
+#' instead of doing the whole export again.
+#'
 #' Reproducibility is valued in academic and scientific research -- because it's
 #' hard to verify experiments that are not repeatable. But in general
 #' reproducibility is a good practice in making research transparent. It's also

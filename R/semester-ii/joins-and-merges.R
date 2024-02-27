@@ -14,18 +14,19 @@ ddir <- '~/R/local-data/OECD/'
 
 fns <- ddir %>% list.files(pattern = 'csv$')
 
-gdp <- paste0(ddir, fns[grepl('per capita gdp', fns)]) %>%
+
+fns
+
+gdp <- paste0(ddir, fns[grepl('OECD per capita gdp usd', fns)]) %>%
   read.csv() %>% tibble()
 
-lxp <- paste0(ddir, fns[grepl('life exp', fns)]) %>%
+lxp <- paste0(ddir, fns[grepl('OECD life exp', fns)]) %>%
   read.csv() %>% tibble()
 
 
-# peeks -------------------------------------------------------------------
+# initial peeks and trims ----------------------------------------------------
 
-
-## peek and trim useless colms ---------------------------------------------
-
+# trim useless columns
 lxp %>%
   select( where( ~length(unique(.x)) == 1)) %>%
   glimpse()
@@ -52,6 +53,7 @@ plot.theme <- function() {
   hrbrthemes::theme_ipsum()
 
 }
+
 # life expectancy alone ---------------------------------------------------
 
 lxp %>% count(REF_AREA, Reference.area)
@@ -63,12 +65,14 @@ lxp %>%
         ,group = REF_AREA
         ,label = Reference.area)
   ) +
-  geom_path() +
+  geom_path(
+    alpha = .7
+  ) +
   scale_x_continuous('Year') +
   scale_y_continuous('Life expectancy') +
   plot.theme()
 
-plotly::ggplotly()
+#plotly::ggplotly()
 
 
 
@@ -108,10 +112,9 @@ gdp %>% glimpse()
 #' The other variable (gdp per capita or life expectancy) is always called
 #' "OBS_VALUE".
 
+## row binding -------------------------------------------------------------
 
-# row binding -------------------------------------------------------------
-
-#' We can combine in to ways... because the data has such idenitical structure,
+#' We can combine in to ways... because the data has identical column names,
 #' we can add a new column to each that indicate the other variable, and then
 #' ROW BIND, which basically stacks the datasets on top of one another.
 
@@ -130,13 +133,13 @@ gdp.tmp %>% nrow()
 # what is the data structure of the new table?
 lxp.gdp
 
-# merging -----------------------------------------------------------------
+## merging -----------------------------------------------------------------
 
 #' more frequently, the data will have some matching columns, but not ALL
 #' matching columns as above.
 #'
-#' Let's simulate that by renaming the OBSVAALUE column for each.
-#'
+#' Let's simulate that by renaming the OBS_VALUE column for each.
+
 
 lxp.tmp <- lxp %>% rename('life.exp' = OBS_VALUE )
 gdp.tmp <- gdp %>% rename(gdp.per.cap = OBS_VALUE )
@@ -217,26 +220,24 @@ gdp.lxp.tmp %>%
     aes(x = gdp.per.cap
         ,y = life.exp)
   ) +
+  geom_smooth(method = 'lm') +
   geom_point() +
-  geom_smooth() +
   plot.theme()
-
-
 
 
 ## connected time series scatter plot... -----------------------------------
 
-
+# minimalist first try.
 gdp.lxp.tmp %>%
   ggplot(
     aes(x = gdp.per.cap
         ,y = life.exp
         ,group = Reference.area)
   ) +
-  geom_line()
+  geom_path()
 
-# how can we clean up?
 
+### how can we clean up? ----------------------------------------------------
 
 gdp.lxp.tmp %>% count(REF_AREA, Reference.area)
 
@@ -244,7 +245,7 @@ gdp.lxp.tmp %>%
   filter(TIME_PERIOD == 2022) %>%
   arrange(desc(gdp.per.cap))
 
-# trim Luxembourg and Ireland (a quick google search shows some articles thay
+# trim Luxembourg and Ireland (a quick google search yields some articles that
 # say Ireland GDP per cap is misleadingly inflated, and Luxembourg is a very
 # small, very wealthy country.)
 outlier.countries <- gdp.lxp.tmp %>%

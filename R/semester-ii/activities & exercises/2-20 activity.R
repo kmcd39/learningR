@@ -15,8 +15,27 @@ eia %>%
   filter(!is.tot) %>%
   ggplot(
     aes(x = year
-        , y = value
+        ,y = value
         ,color = lbl)
   ) +
-  geom_line()
+  geom_line() +
+  scale_color_brewer(
+  ) +
+  theme_dark()
 
+
+
+eia %>%
+  filter(!is.tot) %>%
+  ggplot(
+    aes(x = year
+        ,y = value
+        ,color = lbl
+        #,fill = lbl
+        )
+  ) +
+  geom_area() +
+  scale_color_brewer(
+    aesthetics = c('color', 'fill')
+  ) +
+  theme_dark()
