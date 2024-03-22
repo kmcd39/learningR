@@ -1,6 +1,5 @@
 library(tidyverse)
 
-
 # resources ---------------------------------------------------------------
 
 #' also see the Joins section in the R textbook!
@@ -13,7 +12,6 @@ library(tidyverse)
 
 
 # read OECD data ----------------------------------------------------------
-
 
 ddir <- '~/R/local-data/OECD/'
 
@@ -29,8 +27,9 @@ gdp <- paste0(ddir, fns[grepl('OECD per capita gdp usd', fns)]) %>%
 lxp <- paste0(ddir, fns[grepl('OECD life exp', fns)]) %>%
   read.csv() %>% tibble()
 
-
 # initial peeks and trims ----------------------------------------------------
+
+lxp %>% glimpse()
 
 # trim useless columns
 lxp %>%
@@ -39,7 +38,6 @@ lxp %>%
 
 lxp <- lxp %>%
   select( where( ~length(unique(.x)) > 1))
-
 
 gdp %>%
   select( where( ~length(unique(.x)) == 1)) %>%
@@ -55,10 +53,9 @@ gdp %>% glimpse()
 # plot theme --------------------------------------------------------------
 
 plot.theme <- function() {
-
   hrbrthemes::theme_ipsum()
-
 }
+
 
 # life expectancy alone ---------------------------------------------------
 
@@ -81,7 +78,6 @@ lxp %>%
 #plotly::ggplotly()
 
 
-
 ## gdp alone ---------------------------------------------------------------
 
 gdp %>%
@@ -98,6 +94,9 @@ gdp %>%
     ,labels = scales::label_number()) +
   plot.theme()
 
+#' `plotly` can be useful to quickly make interactive plots.
+#'
+#' use `plotly::ggplotly` for interactive ggplots :)
 plotly::ggplotly()
 
 
@@ -118,6 +117,9 @@ gdp %>% glimpse()
 #' The other variable (gdp per capita or life expectancy) is always called
 #' "OBS_VALUE".
 
+lxp %>% count(OBS_STATUS, Observation.status)
+gdp %>% count(OBS_STATUS, Observation.status)
+
 ## row binding -------------------------------------------------------------
 
 #' We can combine in to ways... because the data has identical column names,
@@ -136,6 +138,7 @@ lxp.gdp %>% nrow()
 lxp.tmp %>% nrow()
 gdp.tmp %>% nrow()
 
+lxp.gdp %>% count(var)
 # what is the data structure of the new table?
 lxp.gdp
 
@@ -146,9 +149,8 @@ lxp.gdp
 #'
 #' Let's simulate that by renaming the OBS_VALUE column for each.
 
-
 lxp.tmp <- lxp %>% rename('life.exp' = OBS_VALUE )
-gdp.tmp <- gdp %>% rename(gdp.per.cap = OBS_VALUE )
+gdp.tmp <- gdp %>% rename('gdp.per.cap' = OBS_VALUE )
 
 lxp.tmp
 gdp.tmp
@@ -174,6 +176,8 @@ gdp.tmp
 # so our first join attempt:
 gdp.lxp.tmp <- lxp.tmp %>%
   left_join(gdp.tmp)
+
+gdp.lxp.tmp
 # when we don't specify which columns to join by, it'll try all of the coluns in
 # common....
 
@@ -216,9 +220,9 @@ lxp.tmp %>%
 # remaining NAs.
 
 
-
-
 # analyzing together! -----------------------------------------------------
+
+gdp.lxp.tmp
 
 gdp.lxp.tmp %>%
   filter(TIME_PERIOD == 2021) %>%
@@ -230,7 +234,6 @@ gdp.lxp.tmp %>%
   geom_point() +
   plot.theme()
 
-
 ## connected time series scatter plot... -----------------------------------
 
 # minimalist first try.
@@ -238,17 +241,19 @@ gdp.lxp.tmp %>%
   ggplot(
     aes(x = gdp.per.cap
         ,y = life.exp
-        ,group = Reference.area)
+        ,group = Reference.area
+        ,label = TIME_PERIOD)
   ) +
   geom_path()
 
+plotly::ggplotly()
 
 ### how can we clean up? ----------------------------------------------------
 
 gdp.lxp.tmp %>% count(REF_AREA, Reference.area)
 
 gdp.lxp.tmp %>%
-  filter(TIME_PERIOD == 2022) %>%
+  filter(TIME_PERIOD == 2021) %>%
   arrange(desc(gdp.per.cap))
 
 # trim Luxembourg and Ireland (a quick google search yields some articles that
@@ -277,7 +282,9 @@ tmp %>%
     aes(x = gdp.per.cap
         ,y = life.exp
         ,group = Reference.area
-        ,alpha = if_else(is.US, 1, .2)
+        ,alpha =
+          is.US
+        #if_else(is.US, 1, .2)
         ,label = TIME_PERIOD
     )
   ) +
@@ -286,7 +293,9 @@ tmp %>%
   geom_point(
     data = filter(tmp,
                   TIME_PERIOD == 2021)
-  ) +
-  scale_alpha_identity()
+  )
+#+  scale_alpha_identity()
 
 plotly::ggplotly()
+
+tmp %>% View()

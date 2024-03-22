@@ -23,7 +23,8 @@ library(mapview)
 #' boundaries.
 #'
 #' Notably, however, CBSAs will often span multiple states, even while they are
-#' composed nearly of counties.
+#' composed neatly of counties.
+#'
 cbsas <- tigris::core_based_statistical_areas(
   year = 2021) %>%
   rename_with(tolower)
@@ -62,7 +63,8 @@ cts <- map_dfr(
   )) %>%
   rename_with(tolower)
 
-
+# a quick map
+cts[2] %>% plot()
 
 # compare across the geographies ------------------------------------------
 
@@ -119,7 +121,6 @@ ny.metro.cos <- cos %>%
 # there they are:
 ny.metro.cos['geoid'] %>% plot()
 
-
 ny.metro.cos
 
 
@@ -128,7 +129,7 @@ ny.metro.cos
 # in those 3 states, we have 11,038 census tracts (compared to 150 counties)
 nrow(cts)
 nrow(cos)
-# This number can get unweildy if we don't know what we're doing!
+# This number can get unwieldy if we don't know what we're doing!
 
 cts
 
@@ -141,8 +142,8 @@ cos %>% select(1:5)
 #'
 #' Importantly, many census geographies are co-terminous, which means smaller
 #' ones are nested inside larger ones. For these co-terminous geographies, the
-#' GEOIDs are constructed by concatenating (pasting together) FIPS codes for the
-#' different geographies.
+#' GEOIDs are often constructed by concatenating (pasting together) FIPS codes
+#' for the different geographies.
 #'
 #' For example, the GEOID for counties are the STATEFP + COUNTYFP
 ny.metro.cos %>% select(1:5)
@@ -158,11 +159,11 @@ ny.metro.cos %>% select(1:5)
 #' their county, and the individual census tract within the county.)
 #'
 cts %>% select(1:5)
-#' Even smaller than tracts are , Census Block Groups and Blocks, which will
+#' Even smaller than tracts are: Block Groups and Blocks, which will
 #' have the same naming conventions: extending their GEOIDs from their
 #' containing census tracts slightly further.
 
-# pull block groups - we can map through the counties containning our metro area
+# pull block groups - we can map through the counties containing our metro area
 # to pull just block groups for the area from the start.
 nybgs <-
   map2_dfr(ny.metro.cos$statefp
@@ -239,9 +240,12 @@ co.incs <-
              ,county = .y
              ,variables = c('medhhinc' = 'B19013_001')
              ,year = 2022
+             ,survey = 'acs5'
            )
   )%>%
   rename_with(tolower)
+
+co.incs %>% arrange(name)
 
 # for metro area:
 cbsa.hh.inc <-
@@ -252,6 +256,7 @@ cbsa.hh.inc <-
   rename_with(tolower)
 
 ny.cbsa
+
 cbsa.hh.inc <- cbsa.hh.inc %>%
   filter(geoid == '35620')
 
@@ -317,7 +322,6 @@ boro.incs %>%
 
 library(colorspace)
 
-hwys
 tmp <- co.incs %>%
   rename(fullname = name) %>%
   left_join(ny.metro.cos[c('geoid', 'name')]
@@ -343,7 +347,7 @@ tmp %>%
   ) +
   ggthemes::theme_map()
 
-# spatial manipulation ----------------------------------------------------
+# PT ii: spatial manipulation ----------------------------------------------------
 
 
 ## spatial filters ---------------------------------------------------------
@@ -364,8 +368,11 @@ cos[1] %>% plot()
 ny.cbsa[1] %>% plot()
 
 # st filter is the basic idea of a spatial filter:
+library(sf)
+
 tmp <- cos %>%
   st_filter(ny.cbsa)
+
 
 ggplot() +
   geom_sf(data = tmp
@@ -404,11 +411,14 @@ ggplot() +
 #' to filter to just the counties we want:
 
 # get points on the surface of each county:
+cos[1] %>% plot()
 pts <- cos %>% st_point_on_surface()
+pts[1] %>% plot()
 # get a list of which of those points intersects the NY CBSA
 sbgp <- st_intersects(pts, ny.cbsa)
 # filter to counties the correspond to where those points intersect
 tmp <- cos[lengths(sbgp) > 0, ]
+
 
 ggplot() +
   geom_sf(data = tmp
@@ -435,22 +445,29 @@ ggplot() +
 
 # first, we can use tigris once again to pull highways:
 ?tigris::primary_roads()
-#' Function documenation: 'From the Census Bureau: "Primary roads are generally divided, limited-access
-#' highways within the Federal interstate highway system or under state
-#' management. These highways are distinguished by the presence of interchanges
-#' and are accessible by ramps and may include some toll highways."'
-hwys <- tigris::primary_secondary_roads(year = 2021) %>%
+
+#' Function documenation: 'From the Census Bureau: "Primary roads are generally
+#' divided, limited-access highways within the Federal interstate highway system
+#' or under state management. These highways are distinguished by the presence
+#' of interchanges and are accessible by ramps and may include some toll
+#' highways."'
+
+hwys <-
+  tigris::primary_roads(year = 2021
+                        #,state = 36
+                        ) %>%
   rename_with(tolower)
+
 # filter to metro area:
 nyhwys <- hwys %>%
   st_filter(ny.cbsa)
 
-nyhwys['fullname'] %>% plot()
+# nyhwys['fullname'] %>% plot()
 
 # when we're doing count and some other commands with spatial data, remember to
 # ask R to treat is as non-spatial data first -- otherwise it will group
-# geometries together too, which can be useful sometimes, but will just slow down
-# other analysis when we don't need it to happen.
+# geometries together too, which can be useful sometimes, but will just slow
+# down other analysis when we don't need it to happen.
 nyhwys %>%
   tibble() %>%
   count(fullname)
@@ -470,22 +487,19 @@ nyhwys %>% tibble() %>% count(rttyp, mtfcc)
 #tidycensus::load_variables(year =2020, dataset = 'dp') %>% View()
 
 
+bgpops <- map2_dfr(
+  ny.metro.cos$statefp, ny.metro.cos$countyfp,
+  ~tidycensus::get_acs(
+     state = .x
+    ,county = .y
+    ,year = 2022
+    ,variables = c('pop' = 'B01001_001')
+    ,geography = 'block group'
+    )
+  ) %>%
+  rename_with( tolower )
 
-bgpops <-
-  map2_dfr(ny.metro.cos$statefp
-           ,ny.metro.cos$countyfp
-           #, ~tidycensus::get_acs(
-           , ~tidycensus::get_decennial(
-             geography = 'block'
-             ,variables = c('pop' = 'P1_001NA')
-             ,year = 2020
-             ,state = .x
-             ,county = .y
-             ,survey = "pl"
-             )
-           ) %>%
-  rename_with(tolower)
-
+#?censusrx::get.tract.attrs()
 bgpops <- bgpops %>%
   select(-name)
 
@@ -497,19 +511,25 @@ bgpopsf <- bgpops %>%
             ,by = c('geoid') ) %>%
   st_sf()
 
-
 nyhwys <- nyhwys %>%
   st_transform(st_crs(bgpopsf))
 
-sbgp <- st_is_within_distance(
-   bgpopsf
-  ,nyhwys
-  ,units::set_units(1000, 'feet')
-)
+bgpopsf$estimate %>% summary()
+
+sbgp <-
+  st_is_within_distance(
+    bgpopsf
+    ,nyhwys
+    ,units::set_units(1000, 'feet')
+  )
+
+sbgp
 
 bgpopsf <- bgpopsf %>%
   mutate(near.hwy =
            lengths(sbgp) > 0)
+
+bgpopsf
 
 bgpopsf %>%
   ggplot() +
@@ -521,14 +541,14 @@ bgpopsf %>%
           ) +
   theme_void()
 
-
 bgpopsf %>%
   filter(aland > 0) %>%
   mapview(zcol = 'near.hwy')
 
 # what is population of Bronx where their neighborhood is within 500 feet of a
 # highway?
-near.hwy.by.county <- bgpopsf %>%
+near.hwy.by.county <-
+  bgpopsf %>%
   tibble() %>%
   mutate(countyid =
            substr(geoid, 1, 5)
@@ -537,7 +557,8 @@ near.hwy.by.county <- bgpopsf %>%
            near.hwy) %>%
   summarise(pop = sum(estimate)) %>%
   group_by(countyid) %>%
-  mutate(perc = pop / sum(pop))
+  mutate(perc = pop / sum(pop)) %>%
+  ungroup()
 
 near.hwy.by.county
 

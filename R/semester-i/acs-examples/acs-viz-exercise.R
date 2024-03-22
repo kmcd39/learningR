@@ -269,8 +269,7 @@ attrsf %>%
   theme(legend.position =
           c(.15, .8)
         )
-
-  scale_fill_binned_divergingx(
+  colorspace::scale_fill_binned_divergingx(
     mid =
       #manhattan.median
       75e3
